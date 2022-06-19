@@ -18,7 +18,7 @@
     <h2>Upload an Image</h2>
     <?php echo $_SESSION['message']; ?>
 
-    <form method="POST" action="../user/add" enctype="multipart/form-data">        
+    <form method="POST" action="<?php echo BASE_URL;?>user/add" enctype="multipart/form-data">        
         <div>Name: <input type="text" name="image_name" value=""></div>
         <div>Description: <textarea name="description" ></textarea></div>
             <div>

@@ -9,21 +9,12 @@ class Dispatcher
     public $db_conn;
     public function __construct($appConfig)
     {
-        // echo '<pre>';
-        // print_r($appConfig);die;
         $db = new DbConnection($appConfig);
-
-       // $dbConnection = null;
         if ($db) {
             $this->db_conn = $db->getConnection();
         }
        
         $GLOBALS['db']= $this->db_conn;
-
-        // $this->db_conn= $dbConnection;
-        //  echo '<pre>';
-        // print_r($GLOBALS['db']);
-        // die;
     }
 
     public function dispatch()

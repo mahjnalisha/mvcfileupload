@@ -60,7 +60,6 @@ class UserController
             }
 
         }
-         // print_r($return_res);die;
         return $return_res;
 
 
@@ -111,7 +110,7 @@ class UserController
                // echo $unique.$file_name;die;
               if(empty($errors)==true) {
                 $message= '';
-                 move_uploaded_file($file_tmp, $unique.$file_name);
+                 move_uploaded_file($file_tmp, WEB_ROOT .'/img/'.$unique.$file_name);
                  $post_value['image']= $unique.$file_name;
                  $user_id=(isset($user_upload['user_id']))?$user_upload['user_id']:'';
                     if($user_id>0){
@@ -138,8 +137,7 @@ class UserController
 
 
         }
-        $actual_link = "http://localhost/game-test/public/user/";//http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; 
-        // $actual_link = "http://".$_SERVER[HTTP_HOST] .'/public/user';
+        $actual_link = BASE_URL. "user/";
         header('Location:'.  $actual_link);
         
     }
