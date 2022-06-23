@@ -19,14 +19,13 @@ class DbConnection
 
     public function __construct($appConfig = null)
     {
+         // echo 'here';die;
         $this->connectionParam = $appConfig['connection']['params'];
         $this->db = $this->connect();
 
         if (\mysqli_connect_errno()) {
             \printf("Connect failed: %s\n", \mysqli_connect_error());
-            if (\strpos(\mysqli_connect_error(), "Unknown database") !== NULL) {
-                $this->install();
-            }
+           
             $this->db = $this->connect();
         }
 
@@ -48,32 +47,7 @@ class DbConnection
     }
 
 
-    private function install()
-    {
-        $output = [];
-        $conn = new \mysqli($this->connectionParam['host'], $this->connectionParam['user'], $this->connectionParam['password']);
-        if ($conn->connect_error) {
-            throw new \Exception("Connection failed: " . $conn->connect_error);
-        }
-        $sql = "CREATE DATABASE " . $this->connectionParam['dbname'];
-        if ($conn->query($sql) === TRUE) {
-            echo "Database created successfully";
-        } else {
-            $output[] = "<br />Error creating database: " . $conn->error;
-        }
-
-
-
-        $conn = $this->connect();
-        $conn->store_result();
-        $sql = \file_get_contents('../data/schema.mysql.sql');
-        if (\mysqli_multi_query($conn, $sql)) {
-            $output[] = "<br />SQL installation script is executed successfully";
-        } else {
-            throw new \Exception("Error of database setting up: " . $conn->error);
-        }
-        $conn->close();
-    }
+    
 
 
     public function getConnection()
